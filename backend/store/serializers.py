@@ -8,6 +8,7 @@ from .models import (
     Cart,
     CartItem,
     Category,
+    ContactMessage,
     Order,
     OrderItem,
     Product,
@@ -347,3 +348,10 @@ class CheckoutSerializer(serializers.Serializer):
         OrderItem.objects.bulk_create(order_items)
         cart.items.all().delete()
         return order
+
+
+class ContactMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactMessage
+        fields = ['id', 'name', 'email', 'subject', 'message', 'created_at']
+        read_only_fields = ['id', 'created_at']

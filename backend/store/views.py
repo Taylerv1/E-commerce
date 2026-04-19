@@ -21,6 +21,7 @@ from .serializers import (
     CartSerializer,
     CategorySerializer,
     CheckoutSerializer,
+    ContactMessageSerializer,
     OrderSerializer,
     ProductDetailSerializer,
     ProductListSerializer,
@@ -148,6 +149,11 @@ class OrderDetailView(RetrieveAPIView):
 
     def get_queryset(self):
         return self.request.user.orders.all().prefetch_related('items')
+
+
+class ContactMessageCreateView(CreateAPIView):
+    serializer_class = ContactMessageSerializer
+    permission_classes = [AllowAny]
 
 
 class CategoryListView(ListAPIView):
