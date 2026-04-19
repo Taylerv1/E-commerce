@@ -167,3 +167,10 @@ export function checkoutOrder(token, payload) {
     body: JSON.stringify(payload),
   });
 }
+
+export function submitContact(payload) {
+  return request('/contact/', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+}

@@ -5,6 +5,7 @@ import { useAuth } from './context/AuthContext.jsx';
 import Account from './pages/Account.jsx';
 import Cart from './pages/Cart.jsx';
 import Checkout from './pages/Checkout.jsx';
+import Contact from './pages/Contact.jsx';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import ProductDetail from './pages/ProductDetail.jsx';
@@ -33,6 +34,7 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route

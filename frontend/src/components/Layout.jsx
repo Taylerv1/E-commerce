@@ -20,6 +20,7 @@ export default function Layout() {
           <div className="nav-links">
             <NavLink to="/">Home</NavLink>
             <NavLink to="/products">Products</NavLink>
+            <NavLink to="/contact">Contact</NavLink>
             {isAuthenticated ? (
               <>
                 <NavLink to="/cart">Cart</NavLink>
@@ -50,6 +51,7 @@ export default function Layout() {
         <div>
           <strong>Contact</strong>
           <p>Support@example.com</p>
+          <NavLink to="/contact" className="footer-link">Send a message</NavLink>
         </div>
       </footer>
     </div>
