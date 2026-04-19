@@ -18,8 +18,14 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, path
+from store.admin_views import store_reports_view
 
 urlpatterns = [
+    path(
+        'admin/store/reports/',
+        admin.site.admin_view(store_reports_view),
+        name='store-reports',
+    ),
     path('admin/', admin.site.urls),
     path('api/', include('store.urls')),
 ]

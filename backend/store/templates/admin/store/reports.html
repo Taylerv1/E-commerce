@@ -1,0 +1,180 @@
+{% extends "admin/base_site.html" %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+  .reports-wrap {
+    max-width: 1180px;
+  }
+
+  .reports-actions {
+    margin: 0 0 18px;
+  }
+
+  .reports-actions a {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: var(--button-bg);
+    color: var(--button-fg);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 14px;
+    margin: 0 0 26px;
+  }
+
+  .metric-card {
+    border: 1px solid var(--hairline-color);
+    border-radius: 8px;
+    padding: 18px;
+    background: var(--body-bg);
+  }
+
+  .metric-label {
+    margin: 0 0 8px;
+    color: var(--body-quiet-color);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .metric-value {
+    margin: 0;
+    color: var(--body-fg);
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .report-section {
+    margin: 0 0 28px;
+  }
+
+  .report-section h2 {
+    margin: 0 0 12px;
+  }
+
+  .report-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--hairline-color);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .report-table th,
+  .report-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--hairline-color);
+    text-align: left;
+  }
+
+  .report-table th {
+    background: var(--darkened-bg);
+    color: var(--body-fg);
+    font-weight: 700;
+  }
+
+  .report-table tr:last-child td {
+    border-bottom: 0;
+  }
+
+  .empty-report {
+    padding: 18px;
+    border: 1px solid var(--hairline-color);
+    border-radius: 8px;
+    color: var(--body-quiet-color);
+  }
+</style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+  <a href="{% url 'admin:index' %}">Home</a>
+  &rsaquo; Store Reports
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="reports-wrap">
+  <div class="reports-actions">
+    <a href="{% url 'admin:store_order_changelist' %}">View orders</a>
+  </div>
+
+  <div class="metric-grid">
+    <div class="metric-card">
+      <p class="metric-label">Total sales</p>
+      <p class="metric-value">${{ total_sales|floatformat:2 }}</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Number of orders</p>
+      <p class="metric-value">{{ orders_count }}</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Items sold</p>
+      <p class="metric-value">{{ items_sold }}</p>
+    </div>
+    <div class="metric-card">
+      <p class="metric-label">Average order value</p>
+      <p class="metric-value">${{ average_order_value|floatformat:2 }}</p>
+    </div>
+  </div>
+
+  <div class="report-section">
+    <h2>Revenue over time</h2>
+    {% if revenue_by_day %}
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Orders</th>
+            <th>Revenue</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in revenue_by_day %}
+            <tr>
+              <td>{{ row.day }}</td>
+              <td>{{ row.orders_count }}</td>
+              <td>${{ row.total_sales|floatformat:2 }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="empty-report">No orders yet.</div>
+    {% endif %}
+  </div>
+
+  <div class="report-section">
+    <h2>Top-selling products</h2>
+    {% if top_products %}
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity sold</th>
+            <th>Revenue</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for product in top_products %}
+            <tr>
+              <td>{{ product.product_name }}</td>
+              <td>{{ product.quantity_sold }}</td>
+              <td>${{ product.revenue|floatformat:2 }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="empty-report">No sold products yet.</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

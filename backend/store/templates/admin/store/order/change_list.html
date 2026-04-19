@@ -1,0 +1,8 @@
+{% extends "admin/change_list.html" %}
+
+{% block object-tools-items %}
+  <li>
+    <a href="{% url 'store-reports' %}" class="addlink">Store reports</a>
+  </li>
+  {{ block.super }}
+{% endblock %}

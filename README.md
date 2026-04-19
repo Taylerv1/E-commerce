@@ -62,6 +62,12 @@ Django Admin:
 http://127.0.0.1:8000/admin/
 ```
 
+Store reports inside Django Admin:
+
+```text
+http://127.0.0.1:8000/admin/store/reports/
+```
+
 ## Frontend Setup
 
 Open a second terminal:
