@@ -238,7 +238,6 @@ class OrderSerializer(serializers.ModelSerializer):
             'state',
             'postal_code',
             'country',
-            'payment_method',
             'total_price',
             'items',
             'created_at',
@@ -259,7 +258,7 @@ class CheckoutSerializer(serializers.Serializer):
 
     def validate_payment_method(self, value):
         if value != 'mock':
-            raise serializers.ValidationError('Only mock payment is supported.')
+            raise serializers.ValidationError('Selected payment method is not available.')
         return value
 
     def validate(self, attrs):

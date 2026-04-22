@@ -135,7 +135,7 @@ export default function Checkout() {
           <p className="eyebrow">Order placed</p>
           <h1>Thank you for your order.</h1>
           <p className="muted">
-            Order #{createdOrder.id} was created with mock payment.
+            Order #{createdOrder.id} was placed successfully.
           </p>
           <div className="summary-row">
             <span>Total</span>
@@ -257,7 +257,7 @@ export default function Checkout() {
               </label>
               <label className="full-span">
                 Payment method
-                <input value="Mock payment" disabled />
+                <input value="Standard payment" disabled />
               </label>
             </div>
 

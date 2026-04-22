@@ -36,7 +36,7 @@ export default function Layout() {
       <header className="site-header">
         <div className="top-bar">
           <span>Support@example.com</span>
-          <span>Secure checkout with mock payment</span>
+          <span>Easy ordering for everyday tech</span>
         </div>
         <nav className="main-nav" aria-label="Main navigation">
           <NavLink to="/" className="brand" aria-label="Store home">
@@ -80,23 +80,65 @@ export default function Layout() {
       </main>
 
       <footer className="site-footer">
-        <div className="footer-column footer-about">
-          <NavLink to="/" className="footer-brand">
-            <span className="brand-mark">E</span>
-            <span>Tech Store</span>
-          </NavLink>
-          <p>Electronics, accessories, and everyday devices.</p>
+        <div className="footer-promo">
+          <div>
+            <strong>Stay close to new arrivals</strong>
+            <p>Browse fresh devices, accessories, and useful tech picks for your daily setup.</p>
+          </div>
+          <NavLink to="/products" className="primary-button">Browse products</NavLink>
         </div>
-        <div className="footer-column">
-          <strong>Shop</strong>
-          <NavLink to="/products" className="footer-link">Products</NavLink>
-          <NavLink to="/cart" className="footer-link">Cart</NavLink>
-          <NavLink to="/account" className="footer-link">Dashboard</NavLink>
+
+        <div className="footer-main">
+          <div className="footer-column footer-about">
+            <NavLink to="/" className="footer-brand">
+              <span className="brand-mark">E</span>
+              <span>Tech Store</span>
+            </NavLink>
+            <p>
+              Practical electronics, accessories, and everyday devices selected for work,
+              study, and home.
+            </p>
+            <div className="footer-social" aria-label="Social links">
+              <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">f</a>
+              <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">ig</a>
+              <a href="https://x.com/" target="_blank" rel="noreferrer">x</a>
+              <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">yt</a>
+            </div>
+          </div>
+
+          <div className="footer-column">
+            <strong>Shop</strong>
+            <NavLink to="/products" className="footer-link">All products</NavLink>
+            {categories.slice(0, 4).map((category) => (
+              <NavLink
+                key={category.id}
+                to={`/products?category=${category.id}`}
+                className="footer-link"
+              >
+                {category.name}
+              </NavLink>
+            ))}
+          </div>
+
+          <div className="footer-column">
+            <strong>Account</strong>
+            <NavLink to="/cart" className="footer-link">Shopping cart</NavLink>
+            <NavLink to="/account" className="footer-link">Dashboard</NavLink>
+            <NavLink to="/account" className="footer-link">Saved addresses</NavLink>
+            <NavLink to="/account" className="footer-link">Order history</NavLink>
+          </div>
+
+          <div className="footer-column">
+            <strong>Contact</strong>
+            <p>Support@example.com</p>
+            <p>Saida, Lebanon</p>
+            <NavLink to="/contact" className="footer-link">Send a message</NavLink>
+          </div>
         </div>
-        <div className="footer-column">
-          <strong>Contact</strong>
-          <p>Support@example.com</p>
-          <NavLink to="/contact" className="footer-link">Send a message</NavLink>
+
+        <div className="footer-bottom">
+          <span>Copyright 2026 Tech Store. All rights reserved.</span>
+          <span>Built for simple online shopping.</span>
         </div>
       </footer>
     </div>

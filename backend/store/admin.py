@@ -73,9 +73,10 @@ class OrderItemInline(admin.TabularInline):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     change_list_template = 'admin/store/order/change_list.html'
-    list_display = ['id', 'user', 'status', 'total_price', 'payment_method', 'created_at']
-    list_filter = ['status', 'payment_method', 'created_at']
+    list_display = ['id', 'user', 'status', 'total_price', 'created_at']
+    list_filter = ['status', 'created_at']
     search_fields = ['user__username', 'full_name', 'phone']
+    exclude = ['payment_method']
     inlines = [OrderItemInline]
 
 

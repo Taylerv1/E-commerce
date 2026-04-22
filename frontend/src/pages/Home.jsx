@@ -30,9 +30,9 @@ const heroSlides = [
     ctaTo: '/products?sort=newest',
   },
   {
-    eyebrow: 'Mock payment only',
-    title: 'Checkout safely in demo mode',
-    text: 'Add items to your cart, place a real order, and track it from your dashboard.',
+    eyebrow: 'Easy ordering',
+    title: 'From cart to order in minutes',
+    text: 'Add items to your cart, place your order, and track every step from your dashboard.',
     ctaLabel: 'View cart',
     ctaTo: '/cart',
   },
@@ -115,7 +115,7 @@ export default function Home() {
           aria-label="Previous banner"
           onClick={showPreviousSlide}
         >
-          ‹
+          &lsaquo;
         </button>
         <button
           type="button"
@@ -123,7 +123,7 @@ export default function Home() {
           aria-label="Next banner"
           onClick={showNextSlide}
         >
-          ›
+          &rsaquo;
         </button>
 
         <div className="hero-content" key={activeSlide}>
@@ -164,10 +164,10 @@ export default function Home() {
           </div>
         </div>
         <div className="service-item">
-          <span className="service-icon">$</span>
+          <span className="service-icon">TR</span>
           <div>
-            <strong>Mock payment</strong>
-            <small>No external payment gateway.</small>
+            <strong>Order tracking</strong>
+            <small>Follow status from your dashboard.</small>
           </div>
         </div>
       </section>
