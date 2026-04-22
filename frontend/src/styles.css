@@ -1022,10 +1022,12 @@ img {
 
 .auth-page {
   max-width: none;
-  min-height: 620px;
+  min-height: calc(100vh - 156px);
   position: relative;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 46px max(28px, calc((100vw - 1320px) / 2));
   overflow: hidden;
   isolation: isolate;
 }
@@ -1043,7 +1045,10 @@ img {
 
 .auth-scene {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 52vw;
   z-index: -1;
   pointer-events: none;
   opacity: 0.92;
@@ -1058,21 +1063,39 @@ img {
 .auth-panel {
   position: relative;
   z-index: 1;
-  width: min(100%, 470px);
-  padding: 34px;
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 20px 50px rgba(18, 22, 25, 0.07);
+  width: min(100%, 420px);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
 }
 
 .auth-panel.wide {
-  width: min(100%, 740px);
+  width: min(100%, 540px);
 }
 
 .auth-panel h1,
 .account-heading h1,
 .account-section h2 {
-  margin: 8px 0 22px;
+  margin: 8px 0 20px;
+}
+
+.auth-panel .form-grid {
+  gap: 14px;
+}
+
+.auth-panel .form-grid input {
+  min-height: 42px;
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.auth-panel .primary-button {
+  min-height: 44px;
+}
+
+.auth-panel .muted {
+  margin-top: 18px;
 }
 
 .form-grid {
@@ -1334,6 +1357,26 @@ img {
     align-items: flex-start;
     flex-direction: column;
   }
+
+  .auth-page {
+    min-height: 720px;
+    padding: 44px 28px 260px;
+  }
+
+  .auth-scene {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: -34px;
+    width: 100%;
+    height: 300px;
+    opacity: 0.76;
+  }
+
+  .auth-panel,
+  .auth-panel.wide {
+    width: min(100%, 560px);
+  }
 }
 
 @media (max-width: 720px) {
@@ -1402,6 +1445,26 @@ img {
   .footer-main {
     grid-template-columns: 1fr;
     padding: 38px 20px;
+  }
+
+  .auth-page {
+    min-height: 720px;
+    padding: 44px 24px 250px;
+  }
+
+  .auth-scene {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: -32px;
+    width: 100%;
+    height: 280px;
+    opacity: 0.76;
+  }
+
+  .auth-panel,
+  .auth-panel.wide {
+    width: min(100%, 560px);
   }
 
   .form-grid.two-column,
