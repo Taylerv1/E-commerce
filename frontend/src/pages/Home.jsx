@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import ProductCard from '../components/ProductCard.jsx';
@@ -23,11 +23,11 @@ const heroSlides = [
     ctaTo: '/products',
   },
   {
-    eyebrow: 'Fresh arrivals',
-    title: 'Upgrade your daily setup',
-    text: 'Browse laptops, phones, audio gear, lights, and watches selected for work and home.',
-    ctaLabel: 'Shop arrivals',
-    ctaTo: '/products?sort=newest',
+    eyebrow: 'Customer dashboard',
+    title: 'Manage your shopping in one place',
+    text: 'Save addresses, review loved products, and follow your order history from your dashboard.',
+    ctaLabel: 'Open dashboard',
+    ctaTo: '/account',
   },
   {
     eyebrow: 'Easy ordering',
@@ -42,9 +42,41 @@ function getCategoryImage(categoryName) {
   return categoryImages[categoryName] || '';
 }
 
+function ReceiptIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img" aria-label="Order receipt">
+      <path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z" />
+      <path d="M9 8h6" />
+      <path d="M9 12h4" />
+    </svg>
+  );
+}
+
+function BoxIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img" aria-label="Stock box">
+      <path d="M4 7l8-4 8 4-8 4-8-4z" />
+      <path d="M4 7v10l8 4 8-4V7" />
+      <path d="M12 11v10" />
+    </svg>
+  );
+}
+
+function TrackingIcon() {
+  return (
+    <svg viewBox="0 0 24 24" role="img" aria-label="Delivery truck">
+      <path d="M3 6h11v11H3z" />
+      <path d="M14 10h4l3 4v3h-7z" />
+      <path d="M7 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+      <path d="M17 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+    </svg>
+  );
+}
+
 export default function Home() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
+  const [featuredProducts, setFeaturedProducts] = useState([]);
   const [activeSlide, setActiveSlide] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
@@ -54,17 +86,24 @@ export default function Home() {
 
     async function loadHomeData() {
       try {
-        const [categoryData, productData] = await Promise.all([
+        const [categoryData, productData, featuredData] = await Promise.all([
           getCategories(),
           getProducts({ sort: 'newest' }),
+          getProducts({ featured: 'true', page_size: 12 }),
         ]);
 
         if (!isMounted) {
           return;
         }
 
+        const loadedProducts = productData.results || [];
+        const loadedFeaturedProducts = featuredData.results || [];
+
         setCategories(categoryData);
-        setProducts(productData.results || []);
+        setProducts(loadedProducts);
+        setFeaturedProducts(
+          (loadedFeaturedProducts.length ? loadedFeaturedProducts : loadedProducts).slice(0, 8)
+        );
       } catch (err) {
         if (isMounted) {
           setError(err.message);
@@ -82,11 +121,6 @@ export default function Home() {
       isMounted = false;
     };
   }, []);
-
-  const featuredProducts = useMemo(() => {
-    const featured = products.filter((product) => product.is_featured);
-    return (featured.length ? featured : products).slice(0, 8);
-  }, [products]);
 
   const promoProducts = products.slice(0, 3);
   const currentSlide = heroSlides[activeSlide];
@@ -150,21 +184,27 @@ export default function Home() {
 
       <section className="service-strip" aria-label="Store benefits">
         <div className="service-item">
-          <span className="service-icon">OK</span>
+          <span className="service-icon">
+            <ReceiptIcon />
+          </span>
           <div>
             <strong>Real orders</strong>
             <small>Checkout creates saved orders.</small>
           </div>
         </div>
         <div className="service-item">
-          <span className="service-icon">ST</span>
+          <span className="service-icon">
+            <BoxIcon />
+          </span>
           <div>
             <strong>Stock checked</strong>
             <small>Cart quantity follows inventory.</small>
           </div>
         </div>
         <div className="service-item">
-          <span className="service-icon">TR</span>
+          <span className="service-icon">
+            <TrackingIcon />
+          </span>
           <div>
             <strong>Order tracking</strong>
             <small>Follow status from your dashboard.</small>

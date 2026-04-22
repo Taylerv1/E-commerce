@@ -8,6 +8,7 @@ from rest_framework.generics import (
     RetrieveUpdateAPIView,
     RetrieveUpdateDestroyAPIView,
 )
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -28,6 +29,12 @@ from .serializers import (
     ProfileSerializer,
     RegisterSerializer,
 )
+
+
+class ProductPagination(PageNumberPagination):
+    page_size = 8
+    page_size_query_param = 'page_size'
+    max_page_size = 40
 
 
 class RegisterView(CreateAPIView):
@@ -166,6 +173,7 @@ class CategoryListView(ListAPIView):
 class ProductListView(ListAPIView):
     serializer_class = ProductListSerializer
     permission_classes = [AllowAny]
+    pagination_class = ProductPagination
 
     def get_queryset(self):
         queryset = (
@@ -179,10 +187,14 @@ class ProductListView(ListAPIView):
         max_price = self.request.query_params.get('max_price')
         availability = self.request.query_params.get('availability')
         search = self.request.query_params.get('search')
+        featured = self.request.query_params.get('featured')
         sort = self.request.query_params.get('sort')
 
         if category:
             queryset = queryset.filter(category_id=category)
+
+        if featured in ['1', 'true', 'yes']:
+            queryset = queryset.filter(is_featured=True)
 
         if min_price:
             queryset = queryset.filter(price__gte=min_price)
