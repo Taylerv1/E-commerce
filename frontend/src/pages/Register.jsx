@@ -47,6 +47,7 @@ export default function Register() {
     <section className="auth-page">
       <AuthScene />
       <div className="auth-panel wide">
+        <Link to="/" className="auth-brand">TechZone</Link>
         <p className="eyebrow">Create account</p>
         <h1>Register</h1>
         <form className="form-grid two-column" onSubmit={handleSubmit}>

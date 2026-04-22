@@ -190,16 +190,25 @@ export default function Account() {
           <p className="eyebrow">Dashboard</p>
           <h1>My dashboard</h1>
         </div>
-        <p className="muted">Signed in as {user?.username}</p>
+        <p className="signed-in-pill">Signed in as {user?.username}</p>
       </div>
 
       {message && <p className="success-message">{message}</p>}
       {error && <p className="error-message">{error}</p>}
 
       <div className="account-grid">
-        <section className="account-section">
-          <h2>Profile</h2>
-          <form className="form-grid two-column" onSubmit={handleProfileSubmit}>
+        <section className="account-section account-profile-card">
+          <div className="account-card-heading">
+            <div>
+              <p className="eyebrow">Profile</p>
+              <h2>Personal details</h2>
+            </div>
+            <span className="account-card-icon">P</span>
+          </div>
+          <p className="muted account-card-copy">
+            Keep your name and email ready for a smoother checkout.
+          </p>
+          <form className="form-grid two-column account-form" onSubmit={handleProfileSubmit}>
             <label>
               First name
               <input
@@ -234,9 +243,18 @@ export default function Account() {
           </form>
         </section>
 
-        <section className="account-section">
-          <h2>{editingAddressId ? 'Edit address' : 'Add address'}</h2>
-          <form className="form-grid two-column" onSubmit={handleAddressSubmit}>
+        <section className="account-section account-address-card">
+          <div className="account-card-heading">
+            <div>
+              <p className="eyebrow">Address book</p>
+              <h2>{editingAddressId ? 'Edit address' : 'Add address'}</h2>
+            </div>
+            <span className="account-card-icon">A</span>
+          </div>
+          <p className="muted account-card-copy">
+            Save the delivery details you use most often.
+          </p>
+          <form className="form-grid two-column account-form" onSubmit={handleAddressSubmit}>
             <label>
               Full name
               <input

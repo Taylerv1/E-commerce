@@ -40,19 +40,40 @@ export default function Contact() {
   return (
     <section className="contact-page">
       <div className="contact-layout">
-        <div className="contact-intro">
+        <div className="contact-intro contact-hero-card">
           <p className="eyebrow">Contact</p>
           <h1>How can we help?</h1>
           <p className="muted">
-            Send a message and the store team can review it from Django Admin.
+            Questions about products, orders, or your account are welcome here.
           </p>
-          <div className="contact-box">
-            <strong>Email</strong>
-            <p>Support@example.com</p>
+
+          <div className="contact-methods">
+            <div className="contact-box">
+              <span className="contact-icon">M</span>
+              <div>
+                <strong>Email</strong>
+                <p>support@techzone.com</p>
+              </div>
+            </div>
+            <div className="contact-box">
+              <span className="contact-icon">L</span>
+              <div>
+                <strong>Location</strong>
+                <p>Saida, Lebanon</p>
+              </div>
+            </div>
+            <div className="contact-box">
+              <span className="contact-icon">H</span>
+              <div>
+                <strong>Store support</strong>
+                <p>Product questions and order help</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <form className="account-section contact-form" onSubmit={handleSubmit}>
+        <form className="contact-form" onSubmit={handleSubmit}>
+          <p className="eyebrow">Message us</p>
           <h2>Send a message</h2>
           <div className="form-grid">
             <label>

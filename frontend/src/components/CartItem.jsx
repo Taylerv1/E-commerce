@@ -12,9 +12,10 @@ export default function CartItem({ item, onUpdateQuantity, onRemove, isUpdating 
         <p className="muted">${product.price} each</p>
       </div>
       <div className="cart-item-controls">
-        <label>
-          Quantity
+        <div className="cart-quantity">
+          <label htmlFor={`quantity-${item.id}`}>Quantity</label>
           <input
+            id={`quantity-${item.id}`}
             type="number"
             min="1"
             max={product.stock}
@@ -22,11 +23,14 @@ export default function CartItem({ item, onUpdateQuantity, onRemove, isUpdating 
             disabled={isUpdating}
             onChange={(event) => onUpdateQuantity(item.id, Number(event.target.value))}
           />
-        </label>
-        <strong>${item.item_total}</strong>
+        </div>
+        <div className="cart-item-total">
+          <span>Item total</span>
+          <strong>${item.item_total}</strong>
+        </div>
         <button
           type="button"
-          className="secondary-button"
+          className="remove-button"
           disabled={isUpdating}
           onClick={() => onRemove(item.id)}
         >

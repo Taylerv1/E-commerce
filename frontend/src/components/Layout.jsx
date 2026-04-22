@@ -35,13 +35,12 @@ export default function Layout() {
     <div className="app-shell">
       <header className="site-header">
         <div className="top-bar">
-          <span>Support@example.com</span>
+          <span>support@techzone.com</span>
           <span>Easy ordering for everyday tech</span>
         </div>
         <nav className="main-nav" aria-label="Main navigation">
           <NavLink to="/" className="brand" aria-label="Store home">
-            <span className="brand-mark">E</span>
-            <span>Tech Store</span>
+            <span>TechZone</span>
           </NavLink>
           <div className="nav-links">
             <NavLink to="/">Home</NavLink>
@@ -91,8 +90,7 @@ export default function Layout() {
         <div className="footer-main">
           <div className="footer-column footer-about">
             <NavLink to="/" className="footer-brand">
-              <span className="brand-mark">E</span>
-              <span>Tech Store</span>
+              <span>TechZone</span>
             </NavLink>
             <p>
               Practical electronics, accessories, and everyday devices selected for work,
@@ -130,14 +128,14 @@ export default function Layout() {
 
           <div className="footer-column">
             <strong>Contact</strong>
-            <p>Support@example.com</p>
+            <p>support@techzone.com</p>
             <p>Saida, Lebanon</p>
             <NavLink to="/contact" className="footer-link">Send a message</NavLink>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <span>Copyright 2026 Tech Store. All rights reserved.</span>
+          <span>Copyright 2026 TechZone. All rights reserved.</span>
           <span>Built for simple online shopping.</span>
         </div>
       </footer>

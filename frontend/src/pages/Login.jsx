@@ -41,6 +41,7 @@ export default function Login() {
     <section className="auth-page">
       <AuthScene />
       <div className="auth-panel">
+        <Link to="/" className="auth-brand">TechZone</Link>
         <p className="eyebrow">Welcome back</p>
         <h1>Login</h1>
         <form className="form-grid" onSubmit={handleSubmit}>
