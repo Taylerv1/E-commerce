@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   createAddress,
@@ -9,6 +10,7 @@ import {
   updateProfile,
 } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.jsx';
+import { getLovedProducts, removeLovedProduct } from '../utils/lovedProducts.js';
 
 const emptyAddress = {
   full_name: '',
@@ -32,6 +34,7 @@ export default function Account() {
   const [editingAddressId, setEditingAddressId] = useState(null);
   const [addresses, setAddresses] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [lovedProducts, setLovedProducts] = useState([]);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -78,6 +81,19 @@ export default function Account() {
       isMounted = false;
     };
   }, [accessToken]);
+
+  useEffect(() => {
+    function loadLovedProducts() {
+      setLovedProducts(getLovedProducts());
+    }
+
+    loadLovedProducts();
+    window.addEventListener('loved-products-updated', loadLovedProducts);
+
+    return () => {
+      window.removeEventListener('loved-products-updated', loadLovedProducts);
+    };
+  }, []);
 
   function handleProfileChange(event) {
     const { name, value } = event.target;
@@ -162,12 +178,17 @@ export default function Account() {
     }
   }
 
+  function handleRemoveLovedProduct(id) {
+    removeLovedProduct(id);
+    setLovedProducts(getLovedProducts());
+  }
+
   return (
     <section className="account-page">
       <div className="account-heading">
         <div>
-          <p className="eyebrow">Account</p>
-          <h1>My account</h1>
+          <p className="eyebrow">Dashboard</p>
+          <h1>My dashboard</h1>
         </div>
         <p className="muted">Signed in as {user?.username}</p>
       </div>
@@ -313,6 +334,51 @@ export default function Account() {
           </form>
         </section>
       </div>
+
+      <section className="account-section">
+        <div className="section-heading compact">
+          <div>
+            <p className="eyebrow">Loved products</p>
+            <h2>Saved for later</h2>
+          </div>
+          <Link to="/products" className="text-link">Browse products</Link>
+        </div>
+
+        {lovedProducts.length === 0 && (
+          <p className="muted">No loved products yet.</p>
+        )}
+
+        {lovedProducts.length > 0 && (
+          <div className="loved-grid">
+            {lovedProducts.map((product) => (
+              <article key={product.id} className="loved-card">
+                <Link to={`/products/${product.id}`} className="loved-image-link">
+                  <img src={product.primary_image} alt={product.name} />
+                </Link>
+                <div className="loved-card-body">
+                  <p className="eyebrow">{product.category_name}</p>
+                  <h3>
+                    <Link to={`/products/${product.id}`}>{product.name}</Link>
+                  </h3>
+                  <div className="product-meta">
+                    <span className="price">${product.price}</span>
+                    <span className={product.stock <= 0 ? 'stock out' : 'stock'}>
+                      {product.stock <= 0 ? 'Out of stock' : `${product.stock} in stock`}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    className="secondary-button"
+                    onClick={() => handleRemoveLovedProduct(product.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </section>
 
       <section className="account-section">
         <h2>Saved addresses</h2>

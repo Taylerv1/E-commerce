@@ -50,7 +50,7 @@ export default function Layout() {
             {isAuthenticated ? (
               <>
                 <NavLink to="/cart">Cart</NavLink>
-                <NavLink to="/account">Account</NavLink>
+                <NavLink to="/account">Dashboard</NavLink>
                 <button type="button" className="nav-button" onClick={logout}>
                   Logout {user?.first_name || user?.username || ''}
                 </button>
@@ -91,7 +91,7 @@ export default function Layout() {
           <strong>Shop</strong>
           <NavLink to="/products" className="footer-link">Products</NavLink>
           <NavLink to="/cart" className="footer-link">Cart</NavLink>
-          <NavLink to="/account" className="footer-link">Account</NavLink>
+          <NavLink to="/account" className="footer-link">Dashboard</NavLink>
         </div>
         <div className="footer-column">
           <strong>Contact</strong>

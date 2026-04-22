@@ -11,7 +11,7 @@ from django.conf import settings
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand, CommandError
 from django.utils.text import slugify
-from PIL import Image, UnidentifiedImageError
+from PIL import Image, ImageChops, ImageOps, UnidentifiedImageError
 
 from store.models import Category, Product, ProductImage
 
@@ -459,18 +459,7 @@ def download_photo(image_url):
 
     try:
         with Image.open(BytesIO(data)) as image:
-            if image.mode not in ('RGB', 'RGBA'):
-                image = image.convert('RGBA')
-
-            image.thumbnail((900, 700), Image.Resampling.LANCZOS)
-            canvas = Image.new('RGB', (900, 700), (255, 255, 255))
-            left = (900 - image.width) // 2
-            top = (700 - image.height) // 2
-
-            if image.mode == 'RGBA':
-                canvas.paste(image, (left, top), image)
-            else:
-                canvas.paste(image, (left, top))
+            canvas = prepare_product_photo(image)
 
             buffer = BytesIO()
             canvas.save(buffer, format='JPEG', quality=88, optimize=True)
@@ -478,6 +467,24 @@ def download_photo(image_url):
             return buffer
     except UnidentifiedImageError as exc:
         raise CommandError(f'Downloaded file is not a valid image: {image_url}') from exc
+
+
+def prepare_product_photo(image):
+    image = image.convert('RGB')
+    background = Image.new('RGB', image.size, image.getpixel((0, 0)))
+    diff = ImageChops.difference(image, background).convert('L')
+    diff = diff.point(lambda value: 255 if value > 18 else 0)
+    bbox = diff.getbbox()
+
+    if bbox:
+        image = image.crop(bbox)
+
+    return ImageOps.fit(
+        image,
+        (900, 700),
+        method=Image.Resampling.LANCZOS,
+        centering=(0.5, 0.5),
+    )
 
 
 def delete_existing_product_images(product):
