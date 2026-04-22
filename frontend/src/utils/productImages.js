@@ -7,13 +7,15 @@ const fallbackImages = [
 ];
 
 export function getProductImage(product, index = 0) {
+  const version = product?.updated_at || product?.created_at || product?.id;
+
   if (product?.primary_image) {
-    return product.primary_image;
+    return withImageVersion(product.primary_image, version);
   }
 
   const image = product?.images?.find((item) => item.is_primary) || product?.images?.[0];
   if (image?.image) {
-    return image.image;
+    return withImageVersion(image.image, version);
   }
 
   return fallbackImages[index % fallbackImages.length];
@@ -25,4 +27,13 @@ export function getHeroImage(products) {
     productWithImage?.primary_image ||
     'https://images.unsplash.com/photo-1498049794561-7780e7231661?auto=format&fit=crop&w=1800&q=80'
   );
+}
+
+function withImageVersion(url, version) {
+  if (!url || !version) {
+    return url;
+  }
+
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}v=${encodeURIComponent(version)}`;
 }

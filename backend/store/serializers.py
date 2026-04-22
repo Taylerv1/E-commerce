@@ -98,6 +98,7 @@ class ProductListSerializer(serializers.ModelSerializer):
             'is_featured',
             'primary_image',
             'created_at',
+            'updated_at',
         ]
 
     def get_primary_image(self, obj):
