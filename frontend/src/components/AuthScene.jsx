@@ -174,12 +174,12 @@ export default function AuthScene() {
       const height = mount.clientHeight || 1;
       renderer.setSize(width, height, false);
       const isCompact = width < 780;
-      camera.position.z = isCompact ? 9 : 7.6;
+      camera.position.z = isCompact ? 9.2 : 8.7;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
 
-      sceneGroup.scale.setScalar(isCompact ? 0.48 : 1.12);
-      sceneGroup.position.set(isCompact ? 0.08 : 0.12, isCompact ? -0.42 : -0.14, 0);
+      sceneGroup.scale.setScalar(isCompact ? 0.46 : 0.98);
+      sceneGroup.position.set(isCompact ? 0.08 : 0.88, isCompact ? -0.12 : 0.34, 0);
     }
 
     function animate() {
