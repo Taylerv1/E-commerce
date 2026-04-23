@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-const accent = 0x299982;
-const accentLight = 0x60cfbd;
-const ink = 0x111416;
+const accent = 0x656565;
+const accentLight = 0xc0ff6b;
+const ink = 0x000000;
 
 function createBox(width, height, depth, material, position) {
   const mesh = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material);
@@ -58,12 +58,12 @@ export default function AuthScene() {
       roughness: 0.42,
     });
     const whiteMaterial = new THREE.MeshStandardMaterial({
-      color: 0xffffff,
+      color: 0xd5d5d5,
       metalness: 0.05,
       roughness: 0.45,
     });
     const glassMaterial = new THREE.MeshStandardMaterial({
-      color: 0xdff8f3,
+      color: 0xd5d5d5,
       transparent: true,
       opacity: 0.72,
       metalness: 0,
