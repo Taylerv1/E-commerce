@@ -1880,9 +1880,21 @@ body[data-theme='light'] .site-footer {
   color: #f5f7f6;
 }
 
+body[data-theme='light'] .site-footer .footer-brand,
+body[data-theme='light'] .site-footer .footer-column strong,
+body[data-theme='light'] .site-footer .footer-promo strong {
+  color: #f5f7f6;
+}
+
 body[data-theme='light'] .site-footer .footer-link,
 body[data-theme='light'] .site-footer p {
   color: #d5d5d5;
+}
+
+body[data-theme='light'] .site-footer .footer-social a {
+  color: #f5f7f6;
+  background: #263443;
+  border-color: rgba(213, 213, 213, 0.22);
 }
 
 body[data-theme='light'] .site-footer .footer-link:hover {
