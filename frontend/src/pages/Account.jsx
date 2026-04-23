@@ -23,6 +23,24 @@ const emptyAddress = {
   is_default: false,
 };
 
+function ProfileIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="8" r="4" />
+      <path d="M5 20a7 7 0 0 1 14 0" />
+    </svg>
+  );
+}
+
+function AddressIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 21s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12z" />
+      <circle cx="12" cy="9" r="2.4" />
+    </svg>
+  );
+}
+
 export default function Account() {
   const { accessToken, user, refreshProfile } = useAuth();
   const [profileForm, setProfileForm] = useState({
@@ -203,7 +221,9 @@ export default function Account() {
               <p className="eyebrow">Profile</p>
               <h2>Personal details</h2>
             </div>
-            <span className="account-card-icon">P</span>
+            <span className="account-card-icon">
+              <ProfileIcon />
+            </span>
           </div>
           <p className="muted account-card-copy">
             Keep your name and email ready for a smoother checkout.
@@ -249,7 +269,9 @@ export default function Account() {
               <p className="eyebrow">Address book</p>
               <h2>{editingAddressId ? 'Edit address' : 'Add address'}</h2>
             </div>
-            <span className="account-card-icon">A</span>
+            <span className="account-card-icon">
+              <AddressIcon />
+            </span>
           </div>
           <p className="muted account-card-copy">
             Save the delivery details you use most often.

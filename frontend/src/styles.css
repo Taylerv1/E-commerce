@@ -56,7 +56,7 @@ img {
   top: 0;
   z-index: 20;
   background: rgba(255, 255, 255, 0.96);
-  border-bottom: 1px solid rgba(232, 236, 239, 0.92);
+  border-bottom: 0;
   box-shadow: 0 10px 28px rgba(17, 20, 24, 0.04);
   backdrop-filter: blur(12px);
 }
@@ -132,6 +132,7 @@ img {
 .category-nav {
   color: #ffffff;
   background: #141719;
+  border-bottom: 0;
 }
 
 .category-nav-inner {
@@ -1097,6 +1098,17 @@ img {
   font-weight: 900;
 }
 
+.contact-icon svg,
+.account-card-icon svg {
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .contact-box p {
   margin: 6px 0 0;
   color: var(--muted);
@@ -1143,6 +1155,7 @@ img {
   z-index: -1;
   pointer-events: none;
   opacity: 0.92;
+  transform: translateY(-40px);
 }
 
 .auth-scene canvas {
@@ -1160,6 +1173,7 @@ img {
   background: transparent;
   backdrop-filter: none;
   box-shadow: none;
+  text-align: left;
 }
 
 .auth-panel.wide {
@@ -1170,6 +1184,16 @@ img {
 .account-heading h1,
 .account-section h2 {
   margin: 8px 0 20px;
+}
+
+.auth-panel .eyebrow {
+  margin: 0 0 12px;
+}
+
+.auth-panel h1 {
+  margin: 0 0 24px;
+  font-size: 42px;
+  line-height: 1.05;
 }
 
 .auth-panel .form-grid {
@@ -1191,9 +1215,10 @@ img {
 
 .auth-brand {
   display: inline-flex;
-  margin-bottom: 28px;
+  margin-bottom: 34px;
   color: #111416;
-  font-size: 28px;
+  font-size: 36px;
+  line-height: 1;
   font-weight: 900;
 }
 

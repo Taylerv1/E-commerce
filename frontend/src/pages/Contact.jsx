@@ -9,6 +9,35 @@ const initialForm = {
   message: '',
 };
 
+function MailIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 6h16v12H4z" />
+      <path d="m4 7 8 6 8-6" />
+    </svg>
+  );
+}
+
+function LocationIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 21s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12z" />
+      <circle cx="12" cy="9" r="2.4" />
+    </svg>
+  );
+}
+
+function SupportIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 12a7 7 0 0 1 14 0" />
+      <path d="M5 12v4a2 2 0 0 0 2 2h1v-7H7a2 2 0 0 0-2 2z" />
+      <path d="M19 12v4a2 2 0 0 1-2 2h-1v-7h1a2 2 0 0 1 2 2z" />
+      <path d="M14 20h-3" />
+    </svg>
+  );
+}
+
 export default function Contact() {
   const [form, setForm] = useState(initialForm);
   const [success, setSuccess] = useState('');
@@ -49,21 +78,27 @@ export default function Contact() {
 
           <div className="contact-methods">
             <div className="contact-box">
-              <span className="contact-icon">M</span>
+              <span className="contact-icon">
+                <MailIcon />
+              </span>
               <div>
                 <strong>Email</strong>
                 <p>support@techzone.com</p>
               </div>
             </div>
             <div className="contact-box">
-              <span className="contact-icon">L</span>
+              <span className="contact-icon">
+                <LocationIcon />
+              </span>
               <div>
                 <strong>Location</strong>
                 <p>Saida, Lebanon</p>
               </div>
             </div>
             <div className="contact-box">
-              <span className="contact-icon">H</span>
+              <span className="contact-icon">
+                <SupportIcon />
+              </span>
               <div>
                 <strong>Store support</strong>
                 <p>Product questions and order help</p>
