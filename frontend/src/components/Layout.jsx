@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 
-import { getCategories } from '../api/client.js';
+import { getCart, getCategories } from '../api/client.js';
 import { useAuth } from '../context/AuthContext.jsx';
 import { useTheme } from '../context/ThemeContext.jsx';
 
 function CartIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M4 5h2l2 10h9.5l1.8-7H7.2" />
-      <path d="M9.5 19.2h.1M17 19.2h.1" />
+      <path d="M3.5 4.5h2.4l2 10.2h9.4l2-7.1H7.2" />
+      <circle cx="9.4" cy="19" r="1.4" />
+      <circle cx="17.1" cy="19" r="1.4" />
     </svg>
   );
 }
@@ -32,9 +33,10 @@ function SunIcon() {
 }
 
 export default function Layout() {
-  const { isAuthenticated, logout, user } = useAuth();
+  const { accessToken, isAuthenticated, logout, user } = useAuth();
   const { isLight, toggleTheme } = useTheme();
   const [categories, setCategories] = useState([]);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
@@ -58,6 +60,42 @@ export default function Layout() {
       isMounted = false;
     };
   }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadCartCount() {
+      if (!isAuthenticated || !accessToken) {
+        setCartCount(0);
+        return;
+      }
+
+      try {
+        const data = await getCart(accessToken);
+        const nextCount = (data.items || []).reduce((total, item) => (
+          total + Number(item.quantity || 0)
+        ), 0);
+
+        if (isMounted) {
+          setCartCount(nextCount);
+        }
+      } catch {
+        if (isMounted) {
+          setCartCount(0);
+        }
+      }
+    }
+
+    loadCartCount();
+    window.addEventListener('cart-updated', loadCartCount);
+    window.addEventListener('focus', loadCartCount);
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener('cart-updated', loadCartCount);
+      window.removeEventListener('focus', loadCartCount);
+    };
+  }, [accessToken, isAuthenticated]);
 
   return (
     <div className="app-shell">
@@ -91,6 +129,11 @@ export default function Layout() {
               {isAuthenticated && (
                 <NavLink to="/cart" className="icon-nav-link" aria-label="Shopping cart">
                   <CartIcon />
+                  {cartCount > 0 && (
+                    <span className="cart-badge" aria-label={`${cartCount} products in cart`}>
+                      {cartCount > 99 ? '99+' : cartCount}
+                    </span>
+                  )}
                 </NavLink>
               )}
               <button

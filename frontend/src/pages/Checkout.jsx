@@ -121,6 +121,7 @@ export default function Checkout() {
       const order = await checkoutOrder(accessToken, shipping);
       setCreatedOrder(order);
       setCart({ ...cart, items: [], total_price: '0.00' });
+      window.dispatchEvent(new Event('cart-updated'));
     } catch (err) {
       setError(err.message);
     } finally {

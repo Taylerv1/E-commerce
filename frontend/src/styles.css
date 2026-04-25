@@ -181,6 +181,7 @@ img {
 
 .icon-nav-link,
 .theme-toggle {
+  position: relative;
   width: 40px;
   height: 40px;
   display: inline-flex;
@@ -210,13 +211,38 @@ img {
 
 .icon-nav-link svg,
 .theme-toggle svg {
-  width: 21px;
-  height: 21px;
+  width: 22px;
+  height: 22px;
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.icon-nav-link svg {
+  width: 24px;
+  height: 24px;
+  stroke-width: 2.1;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--header-bg);
+  border-radius: 999px;
+  color: var(--dark);
+  background: var(--accent);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1;
 }
 
 .category-nav {
@@ -1859,6 +1885,12 @@ body[data-theme='light'] .theme-toggle:hover {
   color: #5378e8;
   background: rgba(83, 120, 232, 0.1);
   border-color: #5378e8;
+}
+
+body[data-theme='light'] .cart-badge {
+  color: #f5f7f6;
+  background: #5378e8;
+  border-color: var(--header-bg);
 }
 
 body[data-theme='light'] .promo-tile::before {

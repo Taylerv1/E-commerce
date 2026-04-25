@@ -41,6 +41,7 @@ export default function Cart() {
       await updateCartItem(accessToken, itemId, { quantity });
       const data = await getCart(accessToken);
       setCart(data);
+      window.dispatchEvent(new Event('cart-updated'));
     } catch (err) {
       setError(err.message);
     } finally {
@@ -56,6 +57,7 @@ export default function Cart() {
       await deleteCartItem(accessToken, itemId);
       const data = await getCart(accessToken);
       setCart(data);
+      window.dispatchEvent(new Event('cart-updated'));
     } catch (err) {
       setError(err.message);
     } finally {

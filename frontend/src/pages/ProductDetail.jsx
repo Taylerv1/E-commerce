@@ -77,6 +77,7 @@ export default function ProductDetail() {
         product_id: product.id,
         quantity,
       });
+      window.dispatchEvent(new Event('cart-updated'));
       setMessage('Product added to cart.');
     } catch (err) {
       setError(err.message);
